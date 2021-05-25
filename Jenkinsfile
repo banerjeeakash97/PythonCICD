@@ -6,25 +6,25 @@ pipeline {
  
 
     stages {
-        stage('Git Checkout') {
+        /*stage('Git Checkout') {
             steps {
                 git credentialsId: '4cdb5638-1e76-443c-af1d-a155d81f3d13', url: 'https://infygithub.ad.infosys.com/DNA/PythonCICD.git'
                 echo "Git checkout Completed"
             }
-        }
+        }*/
         stage('Build1') {
-			when {
+	    /*when {
                 branch 'master' 
-            }
+            }*/
             steps {
                 //sh 'python pip install xmlrunner'
                 sh 'python test_name_function.py'
             }
         }
         stage('Unit tests') {
-			when {
+	    /*when {
                 branch 'master' 
-            }
+            }*/
             steps {
                 bat "pytest mytest.py --junitxml=test-reports.xml"
             }
@@ -34,10 +34,10 @@ pipeline {
                 }
             }
         }
-        stage('Coverage') {
-			when {
+        /*stage('Coverage') {
+	    /*when {
                 branch 'Develop' 
-            }
+            }*/
             steps {
                 echo "Code Coverage"
                 sh  ''' coverage run irisvmpy/iris.py 1 1 2 3
@@ -59,6 +59,6 @@ pipeline {
                                    zoomCoverageChart: false])
                 }
             }
-        }
+        }*/
     }
 }
