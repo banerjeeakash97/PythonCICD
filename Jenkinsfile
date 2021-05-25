@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+	/*environment {
+		PATH = \ect\usr\bin\
+	}*/
  
 
     stages {
@@ -11,12 +13,18 @@ pipeline {
             }
         }
         stage('Build1') {
+			when {
+                branch 'master' 
+            }
             steps {
                 //sh 'python pip install xmlrunner'
                 sh 'python test_name_function.py'
             }
         }
         stage('Unit tests') {
+			when {
+                branch 'master' 
+            }
             steps {
                 bat "pytest mytest.py --junitxml=test-reports.xml"
             }
@@ -27,6 +35,9 @@ pipeline {
             }
         }
         stage('Coverage') {
+			when {
+                branch 'Develop' 
+            }
             steps {
                 echo "Code Coverage"
                 sh  ''' coverage run irisvmpy/iris.py 1 1 2 3
